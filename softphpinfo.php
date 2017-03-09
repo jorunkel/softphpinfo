@@ -151,6 +151,18 @@ uksort($configByExt, 'strnatcasecmp');
 						</td>
 					</tr>
 					<tr>
+						<td class="key">phpinfo() Availability</td>
+						<td>
+							<?php
+							ob_start();
+							if(function_exists('phpinfo')) @phpinfo();
+							$pi = ob_get_contents();
+							ob_end_clean();
+							echo empty($pi) ? '<span class="red">disabled</span>' : '<span class="green">enabled</span>';
+							?>
+						</td>
+					</tr>
+					<tr>
 						<td class="key">Zend Version</td>
 						<td><?php echo enc(zend_version()); ?></td>
 					</tr>
@@ -175,6 +187,7 @@ uksort($configByExt, 'strnatcasecmp');
 						} else {
 							echo enc($ext);
 						}
+						echo ' <a class="docs" target="_blank" href="http://php.net/'.enc($ext).'">[docs]</a>';
 						echo '</td>';
 						$v = phpversion($ext);
 						echo '<td>'.enc($v).'</td>';
@@ -202,7 +215,16 @@ uksort($configByExt, 'strnatcasecmp');
 				echo '<tbody>';
 				foreach($extConfigs AS $key => $details) {
 					echo '<tr>';
-					echo '<td class="key">'.enc($key).'</td>';
+					echo '<td class="key">';
+					echo enc($key);
+					$link = null;
+					switch($ext) {
+						case 'Core':
+							$link = 'http://php.net/'.$key;
+							break;
+					}
+					if(isset($link)) echo ' <a class="docs" target="_blank" href="'.enc($link).'">[docs]</a>';
+					echo '</td>';
 					echo '<td>'.get_value($details['local_value']).'</td>';
 					echo '<td>'.get_value($details['global_value']).'</td>';
 					$access = array();
@@ -408,6 +430,11 @@ uksort($configByExt, 'strnatcasecmp');
 			}
 			.gray {
 				color: #999;
+			}
+			.docs {
+				font-weight: normal;
+				color: #666;
+				float: right;
 			}
 			nav ul {
 				list-style: none;
