@@ -17,3 +17,9 @@
 1. Upload the **softphpinfo.php** file on your hosting.
 
 2. Open your browser and open the URL of the uploaded file.
+
+## Search tags
+
+* phpinfo() is disabled
+* Alternative to phpinfo()
+* Replacement for phpinfo()
