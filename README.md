@@ -1,0 +1,19 @@
+# softPhpInfo() v0.1
+
+**softPhpInfo()** is a simple replacement for PHP's built-in **`phpinfo()`** function. It's purpose is to get some equivalent info on hostings where phpinfo() has been disabled for security reasons.
+
+## Features
+
+* Shows some environment info (server, user, etc.)
+* Lists all loaded extensions and their versions
+* Shows all configuration values for all loaded extensions
+* Shows `$_SERVER` contents
+* Shows default response headers
+* Quick navigation bar at the left side
+* Mimics the original `phpinfo()`'s look and feel
+
+## How to Use
+
+1. Upload the **softphpinfo.php** file on your hosting.
+
+2. Open your browser and open the URL of the uploaded file.
