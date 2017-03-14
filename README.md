@@ -7,6 +7,7 @@
 * Shows some environment info (server, user, etc.)
 * Lists all loaded extensions and their versions
 * Shows all configuration values for all loaded extensions
+* Show access level for configuration values
 * Shows `$_SERVER` contents
 * Shows default response headers
 * Quick navigation bar at the left side
