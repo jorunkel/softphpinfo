@@ -29,9 +29,9 @@ define('APP_CHARSET', ini_get('default_charset'));
 define('APP_NAME', 'softPhpInfo()');
 
 if(!defined('PHP_INI_USER')) define('PHP_INI_USER', 1);
-if(!defined('PHP_INI_PERDIR')) define('PHP_INI_PERDIR', 1);
-if(!defined('PHP_INI_SYSTEM')) define('PHP_INI_SYSTEM', 1);
-if(!defined('PHP_INI_ALL')) define('PHP_INI_ALL', 1);
+if(!defined('PHP_INI_PERDIR')) define('PHP_INI_PERDIR', 6);
+if(!defined('PHP_INI_SYSTEM')) define('PHP_INI_SYSTEM', 4);
+if(!defined('PHP_INI_ALL')) define('PHP_INI_ALL', 7);
 
 function enc($text) {
 	return htmlentities($text, ENT_COMPAT | ENT_HTML401, APP_CHARSET);
