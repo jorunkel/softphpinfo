@@ -21,6 +21,7 @@
 
 ## Search tags
 
+* Warning: phpinfo() has been disabled for security reasons
 * phpinfo() is disabled
 * Alternative to phpinfo()
 * Replacement for phpinfo()
