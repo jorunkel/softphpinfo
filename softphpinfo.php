@@ -24,7 +24,7 @@
  * SOFTWARE.
  */
 
-define('APP_VERSION', '0.1');
+define('APP_VERSION', '0.2');
 define('APP_CHARSET', ini_get('default_charset'));
 define('APP_NAME', 'softPhpInfo()');
 
@@ -33,8 +33,15 @@ if(!defined('PHP_INI_PERDIR')) define('PHP_INI_PERDIR', 2);
 if(!defined('PHP_INI_SYSTEM')) define('PHP_INI_SYSTEM', 4);
 if(!defined('PHP_INI_ALL')) define('PHP_INI_ALL', PHP_INI_USER | PHP_INI_PERDIR | PHP_INI_SYSTEM);
 
+if(defined('ENT_HTML401')) {
+	define('ENC_FLAGS', ENT_COMPAT | ENT_HTML401);
+} else {
+	define('ENC_FLAGS', ENT_COMPAT);
+}
+
 function enc($text) {
-	return htmlentities($text, ENT_COMPAT | ENT_HTML401, APP_CHARSET);
+	if(is_array($text)) print_r($text);
+	return htmlentities($text, ENC_FLAGS, APP_CHARSET);
 }
 function get_value($value) {
 	if(!isset($value) || $value=='') {
@@ -43,7 +50,15 @@ function get_value($value) {
 		if(preg_match('/^#[a-f0-9]{6}$/i', $value)) {
 			return '<span style="color: '.$value.'">'.$value.'</span>';
 		}
-		return enc($value);
+		if(is_array($value)) {
+			$result = array();
+			foreach($value AS $k => $v) {
+				$result[] = enc($k).' = '.enc($v);
+			}
+			return implode("<br />", $result);
+		} else {
+			return enc($value);
+		}
 	}
 }
 
@@ -98,7 +113,12 @@ uksort($configByExt, 'strnatcasecmp');
 					<?php if(function_exists('posix_getpwuid')) { ?>
 					<tr>
 						<td class="key">Web User</td>
-						<td><?php echo enc(posix_getpwuid(posix_geteuid())['name']); ?></td>
+						<td>
+							<?php
+							$posixUser = posix_getpwuid(posix_geteuid());
+							echo enc($posixUser['name']);
+							?>
+						</td>
 					</tr>
 					<?php } ?>
 					<tr>
@@ -253,7 +273,17 @@ uksort($configByExt, 'strnatcasecmp');
 					foreach($_SERVER AS $k => $v) {
 						echo '<tr>';
 						echo '<td class="key">'.enc($k).'</td>';
-						echo '<td>'.enc($v).'</td>';
+						echo '<td>';
+						if(is_array($v)) {
+							$vs = array();
+							foreach($v AS $vk => $vv) {
+								$vs[] = enc($vk)." = ".enc($vv);
+							}
+							echo implode("<br />", $vs);
+						} else {
+							echo enc($v);
+						}
+						echo '</td>';
 						echo '</tr>';
 					}
 					?>
