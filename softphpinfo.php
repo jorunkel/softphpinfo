@@ -62,9 +62,31 @@ function get_value($value) {
 	}
 }
 
+function get_extension_version($name) {
+	$testName = substr($name, 0, 4)=='pdo_' ? 'pdo_*' : $name;
+	try {
+		switch($testName) {
+			case 'mysql':
+				return @mysql_get_client_info();
+			case 'mysqli':
+				return @mysqli_get_client_info();
+			case 'pdo_*':
+				$pdo = new PDO(substr($name, 4).':');
+				return $pdo->getAttribute(PDO::ATTR_SERVER_VERSION);
+		}
+	} catch(Exception $ex) { }
+	return null;
+}
+
 # get extension list
 $extensions = get_loaded_extensions();
 usort($extensions, 'strnatcasecmp');
+$extVersions = array();
+foreach($extensions AS $ext) {
+	$v = get_extension_version($ext);
+	if(empty($v)) continue;
+	$extVersions[$ext] = $v;
+}
 
 # get configuration by extension
 $configByExt = array();
@@ -209,8 +231,9 @@ uksort($configByExt, 'strnatcasecmp');
 						}
 						echo ' <a class="docs" target="_blank" href="http://php.net/'.enc($ext).'">[docs]</a>';
 						echo '</td>';
-						$v = phpversion($ext);
-						echo '<td>'.enc($v).'</td>';
+						$phpVersion = phpversion($ext);
+						$extVersion = isset($extVersions[$ext]) ? $extVersions[$ext] : null;
+						echo '<td>'.enc($phpVersion.(empty($extVersion) ? '' : ' ('.$extVersion.')')).'</td>';
 						echo '</tr>';
 					}
 					?>
@@ -233,6 +256,12 @@ uksort($configByExt, 'strnatcasecmp');
 				echo '</tr>';
 				echo '</thead>';
 				echo '<tbody>';
+				if(isset($extVersions[$ext])) {
+					echo '<tr>';
+					echo '<td class="key">Version</td>';
+					echo '<td colspan="3">'.enc($extVersions[$ext]).'</td>';
+					echo '</tr>';
+				}
 				foreach($extConfigs AS $key => $details) {
 					echo '<tr>';
 					echo '<td class="key">';
