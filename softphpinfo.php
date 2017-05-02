@@ -24,7 +24,7 @@
  * SOFTWARE.
  */
 
-define('APP_VERSION', '0.2');
+define('APP_VERSION', '0.3');
 define('APP_CHARSET', ini_get('default_charset'));
 define('APP_NAME', 'softPhpInfo()');
 
