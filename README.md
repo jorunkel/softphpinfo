@@ -30,6 +30,10 @@
 
 ## Change log
 
+### v0.3
+
+ * Show MySQL and PDO database server versions.
+
 ### v0.2
 
  * Fixes for compatibility with PHP 5.3.
