@@ -208,6 +208,10 @@ uksort($configByExt, 'strnatcasecmp');
 						<td class="key">Zend Version</td>
 						<td><?php echo enc(zend_version()); ?></td>
 					</tr>
+					<tr>
+						<td class="key">Local Time</td>
+						<td><?php echo date('Y-m-d H:i:s'); ?></td>
+					</tr>
 				</tbody>
 			</table>
 			
