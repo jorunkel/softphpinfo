@@ -30,7 +30,7 @@
 
 ## Change log
 
-## v0.4
+### v0.4
 
  * Bugfix for detecting error reporting.
 
