@@ -3,7 +3,7 @@
 /**
  * The MIT License (MIT)
  * 
- * Copyright (c) 2017 Johannes Runkel (www.jrunkel.de)
+ * Copyright (c) 2020 Johannes Runkel (www.jrunkel.de)
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -24,7 +24,7 @@
  * SOFTWARE.
  */
 
-define('APP_VERSION', '0.3');
+define('APP_VERSION', '0.4');
 define('APP_CHARSET', ini_get('default_charset'));
 define('APP_NAME', 'softPhpInfo()');
 
@@ -172,7 +172,7 @@ uksort($configByExt, 'strnatcasecmp');
 						<td>
 							<?php
 							$erep = array();
-							$er = ini_get('error_reporting');
+							$er = (int)ini_get('error_reporting');
 							$erep[] = $er & E_ERROR ? '<span class="green">E_ERROR</span>' : '<span class="gray">E_ERROR</span>';
 							$erep[] = $er & E_WARNING ? '<span class="green">E_WARNING</span>' : '<span class="gray">E_WARNING</span>';
 							$erep[] = $er & E_PARSE ? '<span class="green">E_PARSE</span>' : '<span class="gray">E_PARSE</span>';

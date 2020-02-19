@@ -1,4 +1,4 @@
-# softPhpInfo() v0.3
+# softPhpInfo() v0.4
 
 **softPhpInfo()** is a simple replacement for PHP's built-in `phpinfo()` function. It's purpose is to get some equivalent info on hostings where `phpinfo()` has been disabled for security reasons.
 
@@ -29,6 +29,10 @@
 ---
 
 ## Change log
+
+## v0.4
+
+ * Bugfix for detecting error reporting.
 
 ### v0.3
 
